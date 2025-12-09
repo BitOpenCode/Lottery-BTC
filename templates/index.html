@@ -111,7 +111,44 @@
 
                 <div class="seed-info">
                     <h3>Seed (случайность)</h3>
+                    <button id="showSeedGenerationBtn" class="btn btn-small btn-info" style="margin-bottom: 12px;">🔍 Показать как генерируется seed</button>
                     <div id="seedDisplay" class="seed-display"></div>
+                    <div id="seedGenerationProcess" class="seed-generation-process hidden">
+                        <h4>Процесс генерации Seed:</h4>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-title">Конкатенация блоков</div>
+                                    <div id="concatenatedBlocks" class="step-data"></div>
+                                </div>
+                            </div>
+                            <div class="process-arrow">↓</div>
+                            <div class="process-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-title">Преобразование в байты</div>
+                                    <div id="bytesInfo" class="step-data"></div>
+                                </div>
+                            </div>
+                            <div class="process-arrow">↓</div>
+                            <div class="process-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <div class="step-title">SHA256 хеширование</div>
+                                    <div id="sha256Info" class="step-data"></div>
+                                </div>
+                            </div>
+                            <div class="process-arrow">↓</div>
+                            <div class="process-step result-step">
+                                <div class="step-number">✓</div>
+                                <div class="step-content">
+                                    <div class="step-title">Результат: Seed</div>
+                                    <div id="finalSeed" class="step-data"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="winner-section">

@@ -234,6 +234,7 @@ function displayResults(result) {
     
     // Seed
     displaySeed(result.seed_hex);
+    displaySeedGeneration(result.block_hashes, result.seed_hex);
     
     // Победитель
     displayWinner(result.winner, result.scores[result.winner]);
@@ -263,6 +264,57 @@ function displayBlockHashes(hashes, heights) {
 function displaySeed(seedHex) {
     const container = document.getElementById('seedDisplay');
     container.textContent = seedHex;
+}
+
+// Отображение процесса генерации seed
+function displaySeedGeneration(blockHashes, seedHex) {
+    const processEl = document.getElementById('seedGenerationProcess');
+    
+    // Шаг 1: Конкатенация блоков
+    const concatenated = blockHashes.join('');
+    document.getElementById('concatenatedBlocks').innerHTML = `
+        <div style="margin-bottom: 4px;">Блок 1: ${blockHashes[0].substring(0, 20)}...</div>
+        <div style="margin-bottom: 4px;">+ Блок 2: ${blockHashes[1] ? blockHashes[1].substring(0, 20) + '...' : ''}</div>
+        <div style="margin-bottom: 4px;">+ Блок 3: ${blockHashes[2] ? blockHashes[2].substring(0, 20) + '...' : ''}</div>
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
+            <strong>Результат:</strong> ${concatenated.length} символов
+        </div>
+    `;
+    
+    // Шаг 2: Преобразование в байты
+    const bytesLength = concatenated.length; // Каждый hex символ = 1 байт в UTF-8
+    document.getElementById('bytesInfo').innerHTML = `
+        <div>Строка: ${concatenated.length} hex символов</div>
+        <div>→ Преобразование через UTF-8</div>
+        <div style="margin-top: 4px;"><strong>Результат:</strong> ${bytesLength} байт</div>
+    `;
+    
+    // Шаг 3: SHA256
+    document.getElementById('sha256Info').innerHTML = `
+        <div>SHA256(${bytesLength} байт)</div>
+        <div style="margin-top: 4px;">→ Алгоритм SHA256 обрабатывает данные</div>
+        <div style="margin-top: 4px;"><strong>Результат:</strong> 32 байта (256 бит)</div>
+    `;
+    
+    // Шаг 4: Финальный seed
+    document.getElementById('finalSeed').innerHTML = `
+        <div style="color: var(--success-color); font-weight: 600;">${seedHex}</div>
+        <div style="margin-top: 4px; font-size: 10px;">64 hex символа = 32 байта</div>
+    `;
+}
+
+// Переключение отображения процесса генерации seed
+function toggleSeedGeneration() {
+    const processEl = document.getElementById('seedGenerationProcess');
+    const btn = document.getElementById('showSeedGenerationBtn');
+    
+    if (processEl.classList.contains('hidden')) {
+        processEl.classList.remove('hidden');
+        btn.textContent = '🔍 Скрыть процесс генерации';
+    } else {
+        processEl.classList.add('hidden');
+        btn.textContent = '🔍 Показать как генерируется seed';
+    }
 }
 
 // Отображение победителя
