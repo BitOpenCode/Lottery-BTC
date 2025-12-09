@@ -8,6 +8,10 @@ import json
 from lottery_core import get_lottery_result, generate_seed, pick_winner
 from bitcoin_api import get_block_hashes_for_draw, get_latest_block_height
 from typing import List
+from datetime import datetime
+
+# История розыгрышей для проверки уникальности блоков
+lottery_history = []
 
 app = Flask(__name__)
 CORS(app)
