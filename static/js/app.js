@@ -347,16 +347,6 @@ function updateVisualFlow(result) {
         `Билет №${result.winner}\nScore: ${result.scores[result.winner]}`;
 }
 
-// Отображение ошибки
-function showError(message) {
-    const errorEl = document.getElementById('error');
-    errorEl.textContent = `❌ Ошибка: ${message}`;
-    errorEl.style.background = '#f8d7da';
-    errorEl.style.color = '#721c24';
-    errorEl.style.borderLeftColor = '#dc3545';
-    errorEl.classList.remove('hidden');
-}
-
 // Переключение управления билетами
 function toggleTicketsManagement() {
     const managementEl = document.getElementById('ticketsManagement');
