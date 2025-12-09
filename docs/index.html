@@ -248,18 +248,19 @@
         </div>
     </div>
 
-    <script src="static/js/lottery-client.js"></script>
+    <script src="static/js/lottery-client.js" defer></script>
+    <script src="static/js/app.js" defer></script>
     <script>
-        // Проверка загрузки клиентской логики
+        // Проверка загрузки клиентской логики после загрузки всех скриптов
         window.addEventListener('load', () => {
             if (typeof conductLotteryDraw === 'undefined') {
-                console.error('Ошибка: lottery-client.js не загружен!');
+                console.error('❌ Ошибка: lottery-client.js не загружен! Проверьте путь к файлу.');
+                console.log('Текущий путь:', window.location.href);
             } else {
-                console.log('✅ Клиентская логика загружена');
+                console.log('✅ Клиентская логика загружена успешно');
             }
         });
     </script>
-    <script src="static/js/app.js"></script>
 </body>
 </html>
 
