@@ -125,13 +125,14 @@ def pick_winner(seed_hex: str, tickets: List[Union[str, int]]) -> Tuple[str, Dic
     return winner_ticket, scores, proof_data
 
 
-def get_lottery_result(block_hashes: List[str], tickets: List[Union[str, int]]) -> Dict[str, Any]:
+def get_lottery_result(block_hashes: List[str], tickets: List[Union[str, int]], block_heights: Optional[List[int]] = None) -> Dict[str, Any]:
     """
     Получает полный результат лотереи
     
     Args:
         block_hashes: Список хешей блоков Bitcoin
         tickets: Список номеров билетов
+        block_heights: Список высот блоков (опционально)
     
     Returns:
         Dict: Полная информация о розыгрыше
@@ -143,6 +144,7 @@ def get_lottery_result(block_hashes: List[str], tickets: List[Union[str, int]]) 
     
     result = {
         'block_hashes': block_hashes,
+        'block_heights': block_heights or [],
         'seed_hex': seed_hex,
         'tickets': [normalize_ticket_number(t) for t in tickets],
         'winner': winner,

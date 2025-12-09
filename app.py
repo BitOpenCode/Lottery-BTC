@@ -66,11 +66,11 @@ def lottery_draw():
         if tickets is None:
             tickets = load_tickets()
         
-        # Получаем хеши блоков
-        block_hashes = get_block_hashes_for_draw(block_height, block_count)
+        # Получаем хеши блоков и их высоты
+        block_hashes, block_heights = get_block_hashes_for_draw(block_height, block_count)
         
         # Проводим розыгрыш
-        result = get_lottery_result(block_hashes, tickets)
+        result = get_lottery_result(block_hashes, tickets, block_heights)
         
         return jsonify({
             'success': True,

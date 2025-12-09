@@ -230,7 +230,7 @@ function displayResults(result) {
     resultsEl.classList.remove('hidden');
     
     // Блоки Bitcoin
-    displayBlockHashes(result.block_hashes);
+    displayBlockHashes(result.block_hashes, result.block_heights);
     
     // Seed
     displaySeed(result.seed_hex);
@@ -249,13 +249,14 @@ function displayResults(result) {
 }
 
 // Отображение хешей блоков
-function displayBlockHashes(hashes) {
+function displayBlockHashes(hashes, heights) {
     const container = document.getElementById('blockHashes');
-    container.innerHTML = hashes.map((hash, index) => 
-        `<div class="block-hash-item">
-            <strong>Блок ${index + 1}:</strong> ${hash}
-        </div>`
-    ).join('');
+    container.innerHTML = hashes.map((hash, index) => {
+        const height = heights && heights[index] ? `Блок #${heights[index]}` : `Блок ${index + 1}`;
+        return `<div class="block-hash-item">
+            <strong>${height}:</strong> ${hash}
+        </div>`;
+    }).join('');
 }
 
 // Отображение seed

@@ -64,7 +64,7 @@ def get_latest_block_height() -> Optional[int]:
     return None
 
 
-def get_block_hashes_for_draw(draw_block_height: Optional[int] = None, count: int = 3) -> List[str]:
+def get_block_hashes_for_draw(draw_block_height: Optional[int] = None, count: int = 3) -> tuple[List[str], List[int]]:
     """
     Получает хеши блоков для розыгрыша
     
@@ -73,7 +73,7 @@ def get_block_hashes_for_draw(draw_block_height: Optional[int] = None, count: in
         count: Количество блоков для использования (по умолчанию 3)
     
     Returns:
-        List[str]: Список хешей блоков
+        tuple[List[str], List[int]]: Кортеж (список хешей блоков, список высот блоков)
     """
     if draw_block_height is None:
         draw_block_height = get_latest_block_height()
@@ -81,25 +81,28 @@ def get_block_hashes_for_draw(draw_block_height: Optional[int] = None, count: in
             raise Exception("Не удалось получить высоту последнего блока")
     
     block_hashes = []
+    block_heights = []
+    
     for i in range(count):
         height = draw_block_height - i
         block_hash = get_block_hash_by_height(height)
         if block_hash:
             block_hashes.append(block_hash)
+            block_heights.append(height)
         else:
             raise Exception(f"Не удалось получить блок {height}")
     
-    return block_hashes
+    return block_hashes, block_heights
 
 
 if __name__ == "__main__":
     # Тест получения блоков
     print("Получение последних блоков Bitcoin...")
     try:
-        hashes = get_block_hashes_for_draw(count=3)
+        hashes, heights = get_block_hashes_for_draw(count=3)
         print(f"Получено {len(hashes)} блоков:")
-        for i, h in enumerate(hashes):
-            print(f"  Блок {i+1}: {h}")
+        for i, (h, height) in enumerate(zip(hashes, heights)):
+            print(f"  Блок #{height}: {h}")
     except Exception as e:
         print(f"Ошибка: {e}")
 
