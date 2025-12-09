@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showSeedBtn.addEventListener('click', toggleSeedGeneration);
     }
     
+    // Показать процесс выбора победителя
+    const showWinnerBtn = document.getElementById('showWinnerSelectionBtn');
+    if (showWinnerBtn) {
+        showWinnerBtn.addEventListener('click', toggleWinnerSelection);
+    }
+    
     // Обновляем кнопку розыгрыша при изменении билетов
     updateDrawButton();
 });
@@ -251,6 +257,7 @@ function displayResults(result) {
     
     // Билеты
     displayTickets(result.tickets, result.scores, result.winner);
+    displayWinnerSelection(result.tickets, result.scores, result.winner);
     
     // Proof данные
     displayProof(result.proof);
@@ -368,6 +375,81 @@ function toggleScores() {
             el.classList.add('hidden');
         }
     });
+}
+
+// Отображение процесса выбора победителя
+function displayWinnerSelection(tickets, scores, winner) {
+    const processEl = document.getElementById('winnerSelectionProcess');
+    
+    // Шаг 1: Вычисление Score для каждого билета
+    const scoresList = tickets.map(ticket => {
+        const score = scores[ticket];
+        const isWinner = ticket === winner;
+        return {
+            ticket,
+            score,
+            isWinner
+        };
+    }).sort((a, b) => {
+        // Сортируем по score (как строки для правильного сравнения больших чисел)
+        const scoreA = BigInt(a.score);
+        const scoreB = BigInt(b.score);
+        return scoreA < scoreB ? -1 : scoreA > scoreB ? 1 : 0;
+    });
+    
+    document.getElementById('scoresCalculation').innerHTML = `
+        <div style="max-height: 150px; overflow-y: auto;">
+            ${scoresList.map((item, index) => `
+                <div style="margin-bottom: 6px; padding: 6px; background: ${item.isWinner ? 'rgba(255, 215, 0, 0.2)' : 'transparent'}; border-radius: 4px; border-left: ${item.isWinner ? '3px solid #ffd700' : 'none'};">
+                    <strong>Билет №${item.ticket}:</strong> 
+                    <span style="font-family: monospace; font-size: 10px;">${item.score.substring(0, 30)}...</span>
+                    ${item.isWinner ? ' 🏆' : ''}
+                </div>
+            `).join('')}
+        </div>
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
+            <strong>Всего билетов:</strong> ${tickets.length}
+        </div>
+    `;
+    
+    // Шаг 2: Поиск минимального Score
+    const winnerScore = scores[winner];
+    const minScoreInfo = scoresList[0];
+    document.getElementById('minScoreInfo').innerHTML = `
+        <div style="margin-bottom: 4px;">Сравниваем все Score между собой</div>
+        <div style="margin-bottom: 4px;">→ Ищем минимальное значение</div>
+        <div style="margin-top: 8px; padding: 8px; background: rgba(255, 215, 0, 0.2); border-radius: 6px; border-left: 3px solid #ffd700;">
+            <strong>Минимальный Score:</strong> ${minScoreInfo.score.substring(0, 40)}...
+            <br><strong>Билет:</strong> №${minScoreInfo.ticket}
+        </div>
+    `;
+    
+    // Шаг 3: Победитель
+    document.getElementById('winnerInfo').innerHTML = `
+        <div style="font-size: 18px; font-weight: 700; color: #333; margin-bottom: 8px;">
+            🏆 Билет №${winner}
+        </div>
+        <div style="font-size: 12px; color: #666;">
+            Score: ${winnerScore.substring(0, 30)}...
+        </div>
+        <div style="margin-top: 8px; font-size: 11px; color: #666;">
+            Формула: SHA256(seed + ":" + "${winner}") → ${winnerScore.length} цифр
+        </div>
+    `;
+}
+
+// Переключение отображения процесса выбора победителя
+function toggleWinnerSelection() {
+    const processEl = document.getElementById('winnerSelectionProcess');
+    const btn = document.getElementById('showWinnerSelectionBtn');
+    
+    if (processEl.classList.contains('hidden')) {
+        processEl.classList.remove('hidden');
+        btn.textContent = '🔍 Скрыть процесс выбора';
+    } else {
+        processEl.classList.add('hidden');
+        btn.textContent = '🔍 Показать как выбирается победитель';
+    }
 }
 
 // Отображение proof данных

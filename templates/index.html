@@ -158,12 +158,45 @@
 
                 <div class="tickets-section">
                     <h3>Все билеты и их score</h3>
+                    <button id="showWinnerSelectionBtn" class="btn btn-small btn-info" style="margin-bottom: 12px;">🔍 Показать как выбирается победитель</button>
                     <div class="tickets-controls">
                         <label>
                             <input type="checkbox" id="showAllScores"> Показать все score
                         </label>
                     </div>
                     <div id="ticketsList" class="tickets-list"></div>
+                    <div id="winnerSelectionProcess" class="winner-selection-process hidden">
+                        <h4>Процесс выбора победителя:</h4>
+                        <div class="selection-steps">
+                            <div class="selection-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-title">Вычисление Score для каждого билета</div>
+                                    <div id="scoresCalculation" class="step-data"></div>
+                                </div>
+                            </div>
+                            <div class="process-arrow">↓</div>
+                            <div class="selection-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-title">Поиск минимального Score</div>
+                                    <div id="minScoreInfo" class="step-data"></div>
+                                </div>
+                            </div>
+                            <div class="process-arrow">↓</div>
+                            <div class="selection-step result-step">
+                                <div class="step-number">✓</div>
+                                <div class="step-content">
+                                    <div class="step-title">Победитель</div>
+                                    <div id="winnerInfo" class="step-data"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selection-note">
+                            <strong>Правило:</strong> Победитель — билет с наименьшим значением Score. 
+                            Score вычисляется как SHA256(seed + ":" + номер_билета), преобразованный в большое целое число.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="proof-section">

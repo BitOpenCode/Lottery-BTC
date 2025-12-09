@@ -537,6 +537,59 @@ header h1 {
     margin: -4px 0;
 }
 
+/* Процесс выбора победителя */
+.winner-selection-process {
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--tg-theme-bg-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.winner-selection-process h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--tg-theme-text-color);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.selection-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.selection-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: var(--tg-theme-secondary-bg-color);
+    border-radius: 10px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.selection-step.result-step {
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    border-left-color: #ffd700;
+}
+
+.selection-note {
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--tg-theme-secondary-bg-color);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+    font-size: 13px;
+    color: var(--tg-theme-text-color);
+    line-height: 1.5;
+}
+
+.selection-note strong {
+    color: var(--primary-color);
+}
+
 .winner-display {
     background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
     padding: 24px 16px;
