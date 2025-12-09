@@ -83,36 +83,48 @@ async function conductDraw() {
     errorEl.classList.add('hidden');
     
     try {
-        const response = await fetch(`${API_BASE}/api/lottery/draw`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                block_count: 3,
-                tickets: currentTickets
-            })
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            currentResult = data.result;
-            displayResults(data.result);
+        // Используем клиентскую логику (работает без бэкенда!)
+        // Если есть API_BASE и он не пустой, используем бэкенд, иначе клиентскую логику
+        if (API_BASE && API_BASE.trim() !== '') {
+            // Используем бэкенд если он настроен
+            const response = await fetch(`${API_BASE}/api/lottery/draw`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    block_count: 3,
+                    tickets: currentTickets
+                })
+            });
             
-            // Показываем предупреждения, если есть
-            if (data.warnings && data.warnings.length > 0) {
-                data.warnings.forEach(warning => {
-                    if (warning.type === 'duplicate_blocks') {
-                        showError(warning.message);
-                    }
-                });
+            const data = await response.json();
+            
+            if (data.success) {
+                currentResult = data.result;
+                displayResults(data.result);
+                
+                // Показываем предупреждения, если есть
+                if (data.warnings && data.warnings.length > 0) {
+                    data.warnings.forEach(warning => {
+                        if (warning.type === 'duplicate_blocks') {
+                            showError(warning.message);
+                        }
+                    });
+                }
+            } else {
+                throw new Error(data.error || 'Ошибка при проведении розыгрыша');
             }
         } else {
-            throw new Error(data.error || 'Ошибка при проведении розыгрыша');
+            // Используем клиентскую логику (работает полностью в браузере!)
+            const result = await conductLotteryDraw(currentTickets, 3);
+            currentResult = result;
+            displayResults(result);
+            showSuccess('Розыгрыш успешно проведен!');
         }
     } catch (error) {
-        showError(error.message);
+        console.error('Ошибка при проведении розыгрыша:', error);
+        showError('Ошибка: ' + error.message);
     } finally {
         loadingEl.classList.add('hidden');
     }

@@ -99,47 +99,16 @@ async function conductDraw() {
     errorEl.classList.add('hidden');
     
     try {
-        const response = await fetch(`${API_BASE}/api/lottery/draw`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                block_count: 3,
-                tickets: currentTickets
-            })
-        });
+        // Используем клиентскую логику (работает без бэкенда!)
+        const result = await conductLotteryDraw(currentTickets, 3);
         
-        if (!response.ok) {
-            if (response.status === 0 || response.type === 'opaque') {
-                throw new Error('Не удалось подключиться к серверу. Убедитесь, что бэкенд развернут и доступен.');
-            }
-            throw new Error(`Ошибка сервера: ${response.status} ${response.statusText}`);
-        }
+        currentResult = result;
+        displayResults(result);
         
-        const data = await response.json();
-        
-        if (data.success) {
-            currentResult = data.result;
-            displayResults(data.result);
-            
-            // Показываем предупреждения, если есть
-            if (data.warnings && data.warnings.length > 0) {
-                data.warnings.forEach(warning => {
-                    if (warning.type === 'duplicate_blocks') {
-                        showError(warning.message);
-                    }
-                });
-            }
-        } else {
-            throw new Error(data.error || 'Ошибка при проведении розыгрыша');
-        }
+        showSuccess('Розыгрыш успешно проведен!');
     } catch (error) {
-        let errorMessage = error.message;
-        if (error.message.includes('CORS') || error.message.includes('Failed to fetch') || error.message.includes('ERR_FAILED')) {
-            errorMessage = 'Ошибка подключения к серверу. Бэкенд не развернут или недоступен. Пожалуйста, разверните бэкенд на Render, Heroku или другом хостинге.';
-        }
-        showError(errorMessage);
+        console.error('Ошибка при проведении розыгрыша:', error);
+        showError('Ошибка: ' + error.message);
     } finally {
         loadingEl.classList.add('hidden');
     }
