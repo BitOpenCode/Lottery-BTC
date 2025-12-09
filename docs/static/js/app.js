@@ -4,12 +4,45 @@
 // Если бэкенд развернут отдельно, укажите его URL здесь
 // Например: const API_BASE = 'https://your-backend.herokuapp.com';
 // Или оставьте пустым для относительных путей (если бэкенд на том же домене)
-const API_BASE = window.location.hostname === 'bitopencode.github.io' 
-    ? 'https://lottery-btc-backend.onrender.com'  // Замените на ваш URL бэкенда
-    : '';  // Для локальной разработки используем относительные пути
+// Настройка API базового URL
+// Для GitHub Pages нужно указать URL развернутого бэкенда
+// Для локальной разработки оставьте пустым (будет использоваться относительный путь)
+const API_BASE = (() => {
+    // Если открыто в Telegram Mini App или локально - используем относительные пути
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return '';
+    }
+    // Для GitHub Pages - нужен развернутый бэкенд
+    // ВАЖНО: Замените на ваш реальный URL бэкенда после развертывания
+    // Например: 'https://lottery-btc-backend.onrender.com'
+    return '';  // Временно пусто - нужно развернуть бэкенд
+})();
 
 let currentResult = null;
 let currentTickets = []; // Билеты в памяти браузера
+
+// Инициализация Telegram WebApp API
+let tg = null;
+if (typeof window.Telegram !== 'undefined' && window.Telegram.WebApp) {
+    tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+}
+
+// Обновление главной кнопки Telegram
+function updateTelegramMainButton() {
+    if (!tg || !tg.MainButton) return;
+    
+    if (currentTickets.length > 0) {
+        tg.MainButton.setText(`🎲 Провести розыгрыш (${currentTickets.length})`);
+        tg.MainButton.onClick(() => {
+            document.getElementById('drawBtn').click();
+        });
+        tg.MainButton.show();
+    } else {
+        tg.MainButton.hide();
+    }
+}
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
@@ -77,6 +110,13 @@ async function conductDraw() {
             })
         });
         
+        if (!response.ok) {
+            if (response.status === 0 || response.type === 'opaque') {
+                throw new Error('Не удалось подключиться к серверу. Убедитесь, что бэкенд развернут и доступен.');
+            }
+            throw new Error(`Ошибка сервера: ${response.status} ${response.statusText}`);
+        }
+        
         const data = await response.json();
         
         if (data.success) {
@@ -95,7 +135,11 @@ async function conductDraw() {
             throw new Error(data.error || 'Ошибка при проведении розыгрыша');
         }
     } catch (error) {
-        showError(error.message);
+        let errorMessage = error.message;
+        if (error.message.includes('CORS') || error.message.includes('Failed to fetch') || error.message.includes('ERR_FAILED')) {
+            errorMessage = 'Ошибка подключения к серверу. Бэкенд не развернут или недоступен. Пожалуйста, разверните бэкенд на Render, Heroku или другом хостинге.';
+        }
+        showError(errorMessage);
     } finally {
         loadingEl.classList.add('hidden');
     }
@@ -764,7 +808,7 @@ function showSuccess(message) {
     errorEl.classList.remove('hidden');
     
     // Вибрация в Telegram
-    if (tg && tg.HapticFeedback) {
+    if (typeof tg !== 'undefined' && tg && tg.HapticFeedback) {
         tg.HapticFeedback.notificationOccurred('success');
     }
     
@@ -783,7 +827,7 @@ function showError(message) {
     errorEl.classList.remove('hidden');
     
     // Вибрация в Telegram
-    if (tg && tg.HapticFeedback) {
+    if (typeof tg !== 'undefined' && tg && tg.HapticFeedback) {
         tg.HapticFeedback.notificationOccurred('error');
     }
 }

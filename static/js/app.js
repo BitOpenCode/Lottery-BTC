@@ -5,6 +5,29 @@ const API_BASE = '';
 let currentResult = null;
 let currentTickets = []; // Билеты в памяти браузера
 
+// Инициализация Telegram WebApp API
+let tg = null;
+if (typeof window.Telegram !== 'undefined' && window.Telegram.WebApp) {
+    tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+}
+
+// Обновление главной кнопки Telegram
+function updateTelegramMainButton() {
+    if (!tg || !tg.MainButton) return;
+    
+    if (currentTickets.length > 0) {
+        tg.MainButton.setText(`🎲 Провести розыгрыш (${currentTickets.length})`);
+        tg.MainButton.onClick(() => {
+            document.getElementById('drawBtn').click();
+        });
+        tg.MainButton.show();
+    } else {
+        tg.MainButton.hide();
+    }
+}
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('drawBtn').addEventListener('click', conductDraw);
@@ -758,7 +781,7 @@ function showSuccess(message) {
     errorEl.classList.remove('hidden');
     
     // Вибрация в Telegram
-    if (tg && tg.HapticFeedback) {
+    if (typeof tg !== 'undefined' && tg && tg.HapticFeedback) {
         tg.HapticFeedback.notificationOccurred('success');
     }
     
@@ -777,7 +800,7 @@ function showError(message) {
     errorEl.classList.remove('hidden');
     
     // Вибрация в Telegram
-    if (tg && tg.HapticFeedback) {
+    if (typeof tg !== 'undefined' && tg && tg.HapticFeedback) {
         tg.HapticFeedback.notificationOccurred('error');
     }
 }

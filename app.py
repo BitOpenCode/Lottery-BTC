@@ -14,7 +14,14 @@ from datetime import datetime
 lottery_history = []
 
 app = Flask(__name__)
-CORS(app)
+# Настройка CORS для работы с GitHub Pages и Telegram Mini App
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["*"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # Загружаем билеты из файла или используем по умолчанию
 DEFAULT_TICKETS = [666, 77, 123, 1, 6, 1234, 34567, 126, 999, 42, 777, 888, 555, 333, 111]
