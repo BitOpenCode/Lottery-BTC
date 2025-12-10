@@ -1425,113 +1425,68 @@ header h1 {
     transition: opacity 0.3s ease;
 }
 
-/* Hover эффекты для Cyber Card - основной селектор на весь контейнер */
-.winner-card-container:hover .winner-card-glare {
+/* Hover эффекты для Cyber Card */
+.tracker:hover ~ #winnerCard .card-glare {
     opacity: 1;
 }
 
-.winner-card-container:hover .winner-glowing-elements div {
+.tracker:hover ~ #winnerCard .glowing-elements div {
     opacity: 1;
 }
 
-.winner-card-container:hover .winner-card-particles span {
-    animation: winnerParticleFloat 2s infinite;
+.tracker:hover ~ #winnerCard .card-particles span {
+    animation: particleFloat 2s infinite;
 }
 
-.winner-card-container:hover #winnerCard::before {
+.tracker:hover ~ #winnerCard::before {
     opacity: 1;
 }
 
-.winner-card-container:hover #winnerCard {
+.tracker:hover ~ #winnerCard {
     transition: 300ms;
     filter: brightness(1.1);
 }
 
-.winner-card-container:hover .winner-corner-elements span {
-    border-color: rgba(92, 103, 255, 0.8);
-    box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
+.winner-container:hover #winnerCard::before {
+    transition: 200ms;
+    opacity: 80%;
 }
 
-/* Альтернативные селекторы для совместимости */
-.winner-card-canvas:hover .winner-card-glare {
+#winnerCard:hover .card-glare {
     opacity: 1;
 }
 
-.winner-card-canvas:hover .winner-glowing-elements div {
-    opacity: 1;
-}
-
-.winner-card-canvas:hover .winner-card-particles span {
-    animation: winnerParticleFloat 2s infinite;
-}
-
-.winner-card-canvas:hover #winnerCard::before {
-    opacity: 1;
-}
-
-.winner-card-canvas:hover #winnerCard {
-    transition: 300ms;
-    filter: brightness(1.1);
-}
-
-.winner-card-canvas:hover .winner-corner-elements span {
-    border-color: rgba(92, 103, 255, 0.8);
-    box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
-}
-
-.winner-tracker:hover ~ #winnerCard .winner-card-glare {
-    opacity: 1;
-}
-
-.winner-tracker:hover ~ #winnerCard .winner-glowing-elements div {
-    opacity: 1;
-}
-
-.winner-tracker:hover ~ #winnerCard .winner-card-particles span {
-    animation: winnerParticleFloat 2s infinite;
-}
-
-.winner-tracker:hover ~ #winnerCard::before {
-    opacity: 1;
-}
-
-.winner-tracker:hover ~ #winnerCard {
-    transition: 300ms;
-    filter: brightness(1.1);
-}
-
-.winner-tracker:hover ~ #winnerCard .winner-corner-elements span {
+#winnerCard:hover .corner-elements span {
     border-color: rgba(92, 103, 255, 0.8);
     box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
 }
 
 /* 3D трансформации при наведении */
-.winner-tracker.tr-1:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-2:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-3:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-4:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-5:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-6:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-7:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-8:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-9:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
-
-@keyframes winnerLineGrow {
-    0% { transform: scaleX(0); opacity: 0; }
-    50% { transform: scaleX(1); opacity: 1; }
-    100% { transform: scaleX(0); opacity: 0; }
-}
-
-@keyframes winnerParticleFloat {
-    0% { transform: translate(0, 0); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translate(calc(var(--x, 0) * 30px), calc(var(--y, 0) * 30px)); opacity: 0; }
-}
-
-@keyframes winnerScanMove {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
+.tr-1:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-2:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-3:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-4:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-5:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-6:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-7:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-8:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-9:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-10:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-11:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-12:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-13:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-14:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-15:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-16:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-17:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-18:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-19:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-20:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-21:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-22:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-23:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-24:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.tr-25:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
 
 .noselect {
     -webkit-touch-callout: none;
