@@ -1302,15 +1302,15 @@ header h1 {
 }
 
 /* Дополнительные стили для Cyber Card эффектов */
-.winner-glowing-elements {
+.glowing-elements {
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
-.winner-glow-1,
-.winner-glow-2,
-.winner-glow-3 {
+.glow-1,
+.glow-2,
+.glow-3 {
     position: absolute;
     width: 100px;
     height: 100px;
@@ -1321,29 +1321,29 @@ header h1 {
     transition: opacity 0.3s ease;
 }
 
-.winner-glow-1 {
+.glow-1 {
     top: -20px;
     left: -20px;
 }
 
-.winner-glow-2 {
+.glow-2 {
     top: 50%;
     right: -30px;
     transform: translateY(-50%);
 }
 
-.winner-glow-3 {
+.glow-3 {
     bottom: -20px;
     left: 30%;
 }
 
-.winner-card-particles {
+.card-particles {
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
-.winner-card-particles span {
+.card-particles span {
     position: absolute;
     width: 3px;
     height: 3px;
@@ -1353,20 +1353,20 @@ header h1 {
     transition: opacity 0.3s ease;
 }
 
-.winner-card-particles span:nth-child(1) { --x: 1; --y: -1; top: 40%; left: 20%; }
-.winner-card-particles span:nth-child(2) { --x: -1; --y: -1; top: 60%; right: 20%; }
-.winner-card-particles span:nth-child(3) { --x: 0.5; --y: 1; top: 20%; left: 40%; }
-.winner-card-particles span:nth-child(4) { --x: -0.5; --y: 1; top: 80%; right: 40%; }
-.winner-card-particles span:nth-child(5) { --x: 1; --y: 0.5; top: 30%; left: 60%; }
-.winner-card-particles span:nth-child(6) { --x: -1; --y: 0.5; top: 70%; right: 60%; }
+.card-particles span:nth-child(1) { --x: 1; --y: -1; top: 40%; left: 20%; }
+.card-particles span:nth-child(2) { --x: -1; --y: -1; top: 60%; right: 20%; }
+.card-particles span:nth-child(3) { --x: 0.5; --y: 1; top: 20%; left: 40%; }
+.card-particles span:nth-child(4) { --x: -0.5; --y: 1; top: 80%; right: 40%; }
+.card-particles span:nth-child(5) { --x: 1; --y: 0.5; top: 30%; left: 60%; }
+.card-particles span:nth-child(6) { --x: -1; --y: 0.5; top: 70%; right: 60%; }
 
-.winner-corner-elements {
+.corner-elements {
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
-.winner-corner-elements span {
+.corner-elements span {
     position: absolute;
     width: 15px;
     height: 15px;
@@ -1374,40 +1374,40 @@ header h1 {
     transition: all 0.3s ease;
 }
 
-.winner-corner-elements span:nth-child(1) {
+.corner-elements span:nth-child(1) {
     top: 10px;
     left: 10px;
     border-right: 0;
     border-bottom: 0;
 }
 
-.winner-corner-elements span:nth-child(2) {
+.corner-elements span:nth-child(2) {
     top: 10px;
     right: 10px;
     border-left: 0;
     border-bottom: 0;
 }
 
-.winner-corner-elements span:nth-child(3) {
+.corner-elements span:nth-child(3) {
     bottom: 10px;
     left: 10px;
     border-right: 0;
     border-top: 0;
 }
 
-.winner-corner-elements span:nth-child(4) {
+.corner-elements span:nth-child(4) {
     bottom: 10px;
     right: 10px;
     border-left: 0;
     border-top: 0;
 }
 
-.winner-scan-line {
+.scan-line {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, transparent, rgba(92, 103, 255, 0.1), transparent);
     transform: translateY(-100%);
-    animation: winnerScanMove 2s linear infinite;
+    animation: scanMove 2s linear infinite;
     pointer-events: none;
 }
 
