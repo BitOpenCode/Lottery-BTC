@@ -534,7 +534,7 @@ function displayWinnerSelection(tickets, scores, winner) {
     document.getElementById('scoresCalculation').innerHTML = `
         <div style="max-height: 150px; overflow-y: auto;">
             ${scoresList.map((item, index) => `
-                <div style="margin-bottom: 6px; padding: 6px; background: ${item.isWinner ? 'rgba(255, 215, 0, 0.2)' : 'transparent'}; border-radius: 4px; border-left: ${item.isWinner ? '3px solid #ffd700' : 'none'};">
+                <div style="margin-bottom: 6px; padding: 6px; background: ${item.isWinner ? 'rgba(92, 103, 255, 0.2)' : 'transparent'}; border-radius: 4px; border-left: ${item.isWinner ? '3px solid rgba(92, 103, 255, 0.5)' : 'none'};">
                     <strong>Билет №${item.ticket}:</strong> 
                     <span style="font-family: monospace; font-size: 10px;">${item.score.substring(0, 30)}...</span>
                     ${item.isWinner ? ' 🏆' : ''}
@@ -552,7 +552,7 @@ function displayWinnerSelection(tickets, scores, winner) {
     document.getElementById('minScoreInfo').innerHTML = `
         <div style="margin-bottom: 4px;">Сравниваем все Score между собой</div>
         <div style="margin-bottom: 4px;">→ Ищем минимальное значение</div>
-        <div style="margin-top: 8px; padding: 8px; background: rgba(255, 215, 0, 0.2); border-radius: 6px; border-left: 3px solid #ffd700;">
+        <div style="margin-top: 8px; padding: 8px; background: rgba(92, 103, 255, 0.2); border-radius: 6px; border-left: 3px solid rgba(92, 103, 255, 0.5);">
             <strong>Минимальный Score:</strong> ${minScoreInfo.score.substring(0, 40)}...
             <br><strong>Билет:</strong> №${minScoreInfo.ticket}
         </div>
