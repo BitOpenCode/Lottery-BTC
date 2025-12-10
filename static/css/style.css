@@ -1402,7 +1402,60 @@ header h1 {
     transition: opacity 0.3s ease;
 }
 
-/* Hover эффекты для Cyber Card */
+/* Hover эффекты для Cyber Card - основной селектор на весь контейнер */
+.winner-card-container:hover .winner-card-glare {
+    opacity: 1;
+}
+
+.winner-card-container:hover .winner-glowing-elements div {
+    opacity: 1;
+}
+
+.winner-card-container:hover .winner-card-particles span {
+    animation: winnerParticleFloat 2s infinite;
+}
+
+.winner-card-container:hover #winnerCard::before {
+    opacity: 1;
+}
+
+.winner-card-container:hover #winnerCard {
+    transition: 300ms;
+    filter: brightness(1.1);
+}
+
+.winner-card-container:hover .winner-corner-elements span {
+    border-color: rgba(92, 103, 255, 0.8);
+    box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
+}
+
+/* Альтернативные селекторы для совместимости */
+.winner-card-canvas:hover .winner-card-glare {
+    opacity: 1;
+}
+
+.winner-card-canvas:hover .winner-glowing-elements div {
+    opacity: 1;
+}
+
+.winner-card-canvas:hover .winner-card-particles span {
+    animation: winnerParticleFloat 2s infinite;
+}
+
+.winner-card-canvas:hover #winnerCard::before {
+    opacity: 1;
+}
+
+.winner-card-canvas:hover #winnerCard {
+    transition: 300ms;
+    filter: brightness(1.1);
+}
+
+.winner-card-canvas:hover .winner-corner-elements span {
+    border-color: rgba(92, 103, 255, 0.8);
+    box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
+}
+
 .winner-tracker:hover ~ #winnerCard .winner-card-glare {
     opacity: 1;
 }
@@ -1417,11 +1470,6 @@ header h1 {
 
 .winner-tracker:hover ~ #winnerCard::before {
     opacity: 1;
-}
-
-.winner-card-canvas:hover #winnerCard {
-    transition: 300ms;
-    filter: brightness(1.1);
 }
 
 .winner-tracker:hover ~ #winnerCard {
