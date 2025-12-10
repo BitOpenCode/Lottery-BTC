@@ -1426,7 +1426,34 @@ header h1 {
     transition: opacity 0.3s ease;
 }
 
-/* Hover эффекты для Cyber Card */
+/* Hover эффекты для Cyber Card - основной селектор на canvas */
+.winner-canvas:hover .card-glare {
+    opacity: 1;
+}
+
+.winner-canvas:hover .glowing-elements div {
+    opacity: 1;
+}
+
+.winner-canvas:hover .card-particles span {
+    animation: particleFloat 2s infinite;
+}
+
+.winner-canvas:hover #winnerCard::before {
+    opacity: 1;
+}
+
+.winner-canvas:hover #winnerCard {
+    transition: 300ms;
+    filter: brightness(1.1);
+}
+
+.winner-canvas:hover .corner-elements span {
+    border-color: rgba(92, 103, 255, 0.8);
+    box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
+}
+
+/* Альтернативные селекторы для трекеров */
 .tracker:hover ~ #winnerCard .card-glare {
     opacity: 1;
 }
