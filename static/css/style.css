@@ -694,8 +694,10 @@ header h1 {
 }
 
 .process-step.result-step {
-    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-    border-left-color: var(--success-color);
+    background: #212121;
+    box-shadow: 15px 15px 30px rgb(25, 25, 25),
+                -15px -15px 30px rgb(60, 60, 60);
+    border-left: 3px solid rgba(92, 103, 255, 0.5);
 }
 
 .step-number {
@@ -795,7 +797,9 @@ header h1 {
 }
 
 .selection-step.result-step {
-    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    background: #212121;
+    box-shadow: 15px 15px 30px rgb(25, 25, 25),
+                -15px -15px 30px rgb(60, 60, 60);
     border-left-color: #ffd700;
 }
 
