@@ -963,22 +963,27 @@ header h1 {
 
 .flow-label {
     font-weight: 600;
-    color: var(--tg-theme-text-color);
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 8px;
     font-size: 15px;
 }
 
 .winner-step .flow-label {
-    color: #333;
+    color: #ffd700;
+    font-weight: 700;
 }
 
 .flow-value {
     font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
     font-size: 11px;
-    color: var(--tg-theme-hint-color);
+    color: rgba(255, 255, 255, 0.7);
     word-break: break-all;
     max-height: 80px;
     overflow-y: auto;
+}
+
+.winner-step .flow-value {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .flow-arrow {
