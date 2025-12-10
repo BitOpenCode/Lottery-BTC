@@ -1034,8 +1034,29 @@ header h1 {
     pointer-events: none;
 }
 
+.ticket-item.winner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(125deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
 .ticket-item.winner:hover::before {
     opacity: 1;
+}
+
+.ticket-item.winner:hover::after {
+    opacity: 1;
+}
+
+.ticket-item.winner:hover {
+    border-color: rgba(92, 103, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(92, 103, 255, 0.5);
+    filter: brightness(1.1);
+    transform: scale(1.02);
 }
 
 .ticket-item.winner .ticket-number {
@@ -1044,10 +1065,14 @@ header h1 {
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 15px rgba(0, 255, 170, 0.3));
     text-shadow: 0 0 10px rgba(92, 103, 255, 0.5), 0 0 20px rgba(92, 103, 255, 0.3);
+    position: relative;
+    z-index: 2;
 }
 
 .ticket-item.winner .ticket-score {
     color: rgba(255, 255, 255, 0.7);
+    position: relative;
+    z-index: 2;
 }
 
 .ticket-number {
