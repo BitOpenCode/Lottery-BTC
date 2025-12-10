@@ -1447,6 +1447,11 @@ header h1 {
     filter: brightness(1.1);
 }
 
+.tracker:hover ~ #winnerCard .corner-elements span {
+    border-color: rgba(92, 103, 255, 0.8);
+    box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
+}
+
 .winner-container:hover #winnerCard::before {
     transition: 200ms;
     opacity: 80%;
