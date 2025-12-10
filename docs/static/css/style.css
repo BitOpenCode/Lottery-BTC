@@ -812,7 +812,7 @@ header h1 {
     perspective: 800px;
     position: relative;
     width: 100%;
-    height: 100%;
+    min-height: 250px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -1419,6 +1419,11 @@ header h1 {
     opacity: 1;
 }
 
+.winner-card-canvas:hover #winnerCard {
+    transition: 300ms;
+    filter: brightness(1.1);
+}
+
 .winner-tracker:hover ~ #winnerCard {
     transition: 300ms;
     filter: brightness(1.1);
@@ -1430,15 +1435,15 @@ header h1 {
 }
 
 /* 3D трансформации при наведении */
-.winner-tracker.tr-1:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(-10deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-2:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-3:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(10deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-4:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(-10deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-5:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-6:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(10deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-7:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(-10deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-8:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(0deg); transition: 125ms ease-in-out; }
-.winner-tracker.tr-9:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(10deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-1:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-2:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-3:hover ~ #winnerCard { transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-4:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-5:hover ~ #winnerCard { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-6:hover ~ #winnerCard { transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-7:hover ~ #winnerCard { transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-8:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); transition: 125ms ease-in-out; }
+.winner-tracker.tr-9:hover ~ #winnerCard { transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg); transition: 125ms ease-in-out; }
 
 @keyframes winnerLineGrow {
     0% { transform: scaleX(0); opacity: 0; }
