@@ -560,13 +560,13 @@ function displayWinnerSelection(tickets, scores, winner) {
     
     // Шаг 3: Победитель
     document.getElementById('winnerInfo').innerHTML = `
-        <div style="font-size: 18px; font-weight: 700; color: #333; margin-bottom: 8px;">
+        <div style="font-size: 18px; font-weight: 700; color: rgba(255, 255, 255, 0.95); margin-bottom: 8px;">
             🏆 Билет №${winner}
         </div>
-        <div style="font-size: 12px; color: #666;">
+        <div style="font-size: 12px; color: rgba(255, 255, 255, 0.85);">
             Score: ${winnerScore.substring(0, 30)}...
         </div>
-        <div style="margin-top: 8px; font-size: 11px; color: #666;">
+        <div style="margin-top: 8px; font-size: 11px; color: rgba(255, 255, 255, 0.7);">
             Формула: SHA256(seed + ":" + "${winner}") → ${winnerScore.length} цифр
         </div>
     `;

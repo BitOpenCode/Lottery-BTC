@@ -797,10 +797,19 @@ header h1 {
 }
 
 .selection-step.result-step {
-    background: #212121;
+    background: #212121 !important;
     box-shadow: 15px 15px 30px rgb(25, 25, 25),
-                -15px -15px 30px rgb(60, 60, 60);
-    border-left: 3px solid rgba(92, 103, 255, 0.5);
+                -15px -15px 30px rgb(60, 60, 60) !important;
+    border-left: 3px solid rgba(92, 103, 255, 0.5) !important;
+}
+
+.selection-step.result-step .step-data {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.selection-step.result-step .step-title {
+    color: rgba(255, 255, 255, 0.95) !important;
 }
 
 .selection-note {
