@@ -354,34 +354,100 @@ function displaySeedGeneration(blockHashes, seedHex) {
     
     // Шаг 1: Конкатенация блоков
     const concatenated = blockHashes.join('');
+    const bytesLength = concatenated.length / 2; // Каждый hex символ = 4 бита, два символа = 1 байт
+    
     document.getElementById('concatenatedBlocks').innerHTML = `
-        <div style="margin-bottom: 4px;">Блок 1: ${blockHashes[0].substring(0, 20)}...</div>
-        <div style="margin-bottom: 4px;">+ Блок 2: ${blockHashes[1] ? blockHashes[1].substring(0, 20) + '...' : ''}</div>
-        <div style="margin-bottom: 4px;">+ Блок 3: ${blockHashes[2] ? blockHashes[2].substring(0, 20) + '...' : ''}</div>
-        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
-            <strong>Результат:</strong> ${concatenated.length} символов
+        <div style="margin-bottom: 12px;"><strong>Описание:</strong> Все хеши блоков Bitcoin объединяются в одну строку без разделителей.</div>
+        <div style="margin-bottom: 12px;">
+            <strong>Входные данные (полные хеши блоков):</strong><br>
+            ${blockHashes.map((hash, i) => `
+                <div style="margin-top: 8px;">
+                    <strong>Блок ${i + 1}:</strong><br>
+                    <span style="font-family: 'SF Mono', Monaco, monospace; font-size: 11px; word-break: break-all; display: inline-block; margin-top: 4px; color: rgba(255, 255, 255, 0.9);">${hash}</span>
+                </div>
+            `).join('')}
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border-left: 3px solid #00ffaa;">
+            <strong>Процесс конкатенации:</strong><br>
+            Блок 1 + Блок 2 + Блок 3 = Одна непрерывная строка<br>
+            <span style="font-family: 'SF Mono', Monaco, monospace; font-size: 10px; word-break: break-all; display: inline-block; margin-top: 6px; color: rgba(255, 255, 255, 0.8);">${concatenated}</span>
+        </div>
+        <div style="margin-top: 12px; font-weight: 600; color: #00ffaa; font-size: 13px;">
+            Результат: ${concatenated.length} hex символов (${bytesLength} байт, ${bytesLength * 8} бит)
         </div>
     `;
     
     // Шаг 2: Преобразование в байты
-    const bytesLength = concatenated.length; // Каждый hex символ = 1 байт в UTF-8
     document.getElementById('bytesInfo').innerHTML = `
-        <div>Строка: ${concatenated.length} hex символов</div>
-        <div>→ Преобразование через UTF-8</div>
-        <div style="margin-top: 4px;"><strong>Результат:</strong> ${bytesLength} байт</div>
+        <div style="margin-bottom: 12px;"><strong>Описание:</strong> Hex строка преобразуется в массив байтов для обработки алгоритмом SHA256.</div>
+        <div style="margin-bottom: 12px;">
+            <strong>Входные данные:</strong><br>
+            <span style="font-family: 'SF Mono', Monaco, monospace; font-size: 11px; color: rgba(255, 255, 255, 0.9);">Строка из ${concatenated.length} hex символов</span>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <strong>Процесс преобразования:</strong><br>
+            • Каждая пара hex символов (0-9, a-f) → 1 байт (значение от 0 до 255)<br>
+            • Примеры: "ff" → байт 255, "00" → байт 0, "a1" → байт 161, "3d" → байт 61<br>
+            • Hex символы читаются слева направо парами
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border-left: 3px solid #00ffaa;">
+            <strong>Формула преобразования:</strong><br>
+            Количество байт = Количество hex символов ÷ 2<br>
+            ${concatenated.length} символов ÷ 2 = ${bytesLength} байт<br>
+            <div style="margin-top: 6px; font-size: 10px; color: rgba(255, 255, 255, 0.7);">
+                Каждый байт = 8 бит, поэтому ${bytesLength} байт = ${bytesLength * 8} бит
+            </div>
+        </div>
+        <div style="margin-top: 12px; font-weight: 600; color: #00ffaa; font-size: 13px;">
+            Результат: ${bytesLength} байт (${bytesLength * 8} бит)
+        </div>
     `;
     
     // Шаг 3: SHA256
     document.getElementById('sha256Info').innerHTML = `
-        <div>SHA256(${bytesLength} байт)</div>
-        <div style="margin-top: 4px;">→ Алгоритм SHA256 обрабатывает данные</div>
-        <div style="margin-top: 4px;"><strong>Результат:</strong> 32 байта (256 бит)</div>
+        <div style="margin-bottom: 12px;"><strong>Описание:</strong> Алгоритм SHA256 обрабатывает ${bytesLength} байт и возвращает фиксированный криптографический хеш длиной 32 байта (256 бит).</div>
+        <div style="margin-bottom: 12px;">
+            <strong>Входные данные:</strong><br>
+            <span style="font-family: 'SF Mono', Monaco, monospace; font-size: 11px; color: rgba(255, 255, 255, 0.9);">${bytesLength} байт (${bytesLength * 8} бит)</span>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <strong>Алгоритм SHA256 (детали):</strong><br>
+            • Принимает данные произвольной длины (в нашем случае ${bytesLength} байт)<br>
+            • Выполняет предварительную обработку (padding): добавляет биты до длины, кратной 512 битам<br>
+            • Разбивает данные на блоки по 512 бит (64 байта)<br>
+            • Выполняет 64 раунда криптографических преобразований для каждого блока<br>
+            • Использует операции: AND, OR, XOR, NOT, битовые сдвиги, сложение по модулю 2³²<br>
+            • Всегда возвращает результат фиксированной длины: 32 байта (256 бит)
+        </div>
+        <div style="margin-top: 12px; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border-left: 3px solid #00ffaa;">
+            <strong>Формула:</strong> SHA256(${bytesLength} байт) → 32 байта<br>
+            <div style="margin-top: 6px; font-size: 10px; color: rgba(255, 255, 255, 0.7);">
+                Вход: ${concatenated.substring(0, 64)}... (первые 64 символа из ${concatenated.length})<br>
+                ↓<br>
+                Алгоритм SHA256 обрабатывает все ${bytesLength} байт<br>
+                ↓<br>
+                Выход: 32 байта (64 hex символа)
+            </div>
+        </div>
+        <div style="margin-top: 12px; font-weight: 600; color: #00ffaa; font-size: 13px;">
+            Результат: 32 байта (256 бит) = 64 hex символа
+        </div>
     `;
     
     // Шаг 4: Финальный seed
     document.getElementById('finalSeed').innerHTML = `
-        <div style="color: var(--success-color); font-weight: 600;">${seedHex}</div>
-        <div style="margin-top: 4px; font-size: 10px;">64 hex символа = 32 байта</div>
+        <div style="margin-bottom: 12px;"><strong>Описание:</strong> Финальный seed получен в результате SHA256 хеширования конкатенированных хешей блоков Bitcoin.</div>
+        <div style="margin-top: 12px; padding: 12px; background: rgba(0, 255, 170, 0.1); border-radius: 8px; border: 2px solid rgba(0, 255, 170, 0.3);">
+            <strong style="color: #00ffaa; font-size: 13px;">Результат (Seed):</strong><br>
+            <span style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; word-break: break-all; display: inline-block; margin-top: 6px; color: #00ffaa; font-weight: 600;">${seedHex}</span>
+        </div>
+        <div style="margin-top: 12px; font-size: 11px; color: rgba(255, 255, 255, 0.8);">
+            <strong>Характеристики Seed:</strong><br>
+            • Длина: 64 hex символа = 32 байта = 256 бит<br>
+            • Формат: шестнадцатеричная строка (0-9, a-f)<br>
+            • Использование: используется как источник случайности для вычисления Score каждого билета<br>
+            • Проверяемость: любой может повторить процесс и получить тот же результат
+        </div>
     `;
 }
 
